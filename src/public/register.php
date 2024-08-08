@@ -1,5 +1,7 @@
 <?php
 require_once '../private/Database.php';
+require_once '../private/UserValidator.php';
+require_once '../private/utils.php';
 
 $success = false;
 $error = '';
@@ -14,11 +16,16 @@ function handleRegistration()
     global $success, $error, $name, $phone, $email, $password, $password_repeat;
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $name = $_POST['name'];
-        $phone = $_POST['phone'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $password_repeat = $_POST['password_repeat'];
+        $name = trimField($_POST['name']);
+        $phone = trimField($_POST['phone']);
+        $email = trimField($_POST['email']);
+        $password = trimField($_POST['password']);
+        $password_repeat = trimField($_POST['password_repeat']);
+
+        UserValidator::validateName($name);
+        UserValidator::validatePhone($phone);
+        UserValidator::validateEmail($email);
+        UserValidator::validatePassword($password);
 
         if ($password !== $password_repeat) {
             throw new RuntimeException('Passwords do not match');
