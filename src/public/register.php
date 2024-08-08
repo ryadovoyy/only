@@ -1,0 +1,107 @@
+<?php
+require_once '../private/Database.php';
+
+$success = false;
+$error = '';
+$name = '';
+$phone = '';
+$email = '';
+$password = '';
+$password_repeat = '';
+
+function handleRegistration()
+{
+    global $success, $error, $name, $phone, $email, $password, $password_repeat;
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $password_repeat = $_POST['password_repeat'];
+
+        if ($password !== $password_repeat) {
+            throw new RuntimeException('Passwords do not match');
+        }
+
+        $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+
+        $db = Database::getInstance();
+        $conn = $db->getConnection();
+
+        checkFieldExistence($conn, $name, 'name');
+        checkFieldExistence($conn, $phone, 'phone');
+        checkFieldExistence($conn, $email, 'email');
+
+        $stmt = $conn->prepare('INSERT INTO users (name, phone, email, password) VALUES (?, ?, ?, ?)');
+        $stmt->bind_param('ssss', $name, $phone, $email, $password_hashed);
+
+        if (!$stmt->execute()) {
+            throw new RuntimeException('Registration failed');
+        }
+
+        $stmt->close();
+        $success = true;
+    }
+}
+
+function checkFieldExistence($conn, $field, $field_name)
+{
+    $stmt = $conn->prepare("SELECT id FROM users WHERE $field_name = ?");
+    $stmt->bind_param('s', $field);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+
+    $field_name = ucfirst($field_name);
+    if ($result->num_rows == 1) {
+        throw new RuntimeException("$field_name '$field' already exists");
+    }
+}
+
+try {
+    handleRegistration();
+} catch (RuntimeException $e) {
+    $error = $e->getMessage();
+}
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration</title>
+</head>
+
+<body>
+    <?php if ($success): ?>
+        <p>Registration successful!</p>
+    <?php endif; ?>
+
+    <form action="register.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required><br><br>
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($password); ?>"
+            required><br><br>
+
+        <label for="password_repeat">Repeat Password:</label>
+        <input type="password" id="password_repeat" name="password_repeat"
+            value="<?php echo htmlspecialchars($password_repeat); ?>" required><br><br>
+
+        <?php if ($error): ?>
+            <p style="color: red"><?php echo htmlspecialchars($error); ?></p>
+        <?php endif; ?>
+
+        <input type="submit" value="Register">
+    </form>
+</body>
+
+</html>
