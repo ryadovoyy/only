@@ -15,7 +15,7 @@ function handleRegistration()
 {
     global $success, $name, $phone, $email, $password, $password_repeat;
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = trimField($_POST['name']);
         $phone = trimField($_POST['phone']);
         $email = trimField($_POST['email']);
@@ -62,7 +62,7 @@ function checkFieldExistence($conn, $field, $field_name)
     $stmt->close();
 
     $field_name = ucfirst($field_name);
-    if ($result->num_rows == 1) {
+    if ($result->num_rows === 1) {
         throw new RuntimeException("$field_name '$field' already exists");
     }
 }
