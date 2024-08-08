@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  php-apache:
+    container_name: php-apache
+    build: .
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    volumes:
+      - ./src/public:/var/www/html
+      - ./src/private:/var/www/private
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    container_name: mysql
+    image: mysql:9.0
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h localhost -u${MYSQL_USER} -p${MYSQL_PASSWORD} || exit 1",
+        ]
+      interval: 20s
+      timeout: 5s
+      retries: 10
+
+networks:
+  default:
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: 127.0.0.1
+
+volumes:
+  db_data:
