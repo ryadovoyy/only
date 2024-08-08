@@ -13,7 +13,7 @@ $password_repeat = '';
 
 function handleRegistration()
 {
-    global $success, $error, $name, $phone, $email, $password, $password_repeat;
+    global $success, $name, $phone, $email, $password, $password_repeat;
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $name = trimField($_POST['name']);
@@ -44,6 +44,7 @@ function handleRegistration()
         $stmt->bind_param('ssss', $name, $phone, $email, $password_hashed);
 
         if (!$stmt->execute()) {
+            $stmt->close();
             throw new RuntimeException('Registration failed');
         }
 
