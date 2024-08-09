@@ -93,6 +93,8 @@ try {
 </head>
 
 <body>
+    <?php require_once '../private/templates/header.php'; ?>
+
     <h3>Profile info</h3>
 
     <?php if ($success): ?>

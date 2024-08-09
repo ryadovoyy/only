@@ -68,6 +68,8 @@ try {
 </head>
 
 <body>
+    <?php require_once '../private/templates/header.php'; ?>
+
     <h3>Login</h3>
 
     <form action="login.php" method="post">
