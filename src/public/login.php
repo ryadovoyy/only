@@ -64,7 +64,7 @@ try {
 
 <head>
     <title>Login</title>
-    <script src="<?php echo CAPTCHA_URL . 'captcha.js' ?>" defer></script>
+    <script src="<?= CAPTCHA_URL . 'captcha.js' ?>" defer></script>
 </head>
 
 <body>
@@ -78,10 +78,10 @@ try {
         <input type="password" id="password" name="password" required><br><br>
 
         <div id="captcha-container" class="smart-captcha" style="width: 300px; height: 100px"
-            data-sitekey="<?php echo getenv('CAPTCHA_CLIENT_KEY') ?>"></div><br>
+            data-sitekey="<?= getenv('CAPTCHA_CLIENT_KEY') ?>"></div><br>
 
         <?php if ($error): ?>
-            <p style="color: red"><?php echo htmlspecialchars($error); ?></p>
+            <p style="color: red"><?= htmlspecialchars($error) ?></p>
         <?php endif; ?>
 
         <input type="submit" value="Login">

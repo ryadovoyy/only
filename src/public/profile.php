@@ -101,16 +101,13 @@ try {
 
     <form action="profile.php" method="post">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>"
-            required><br><br>
+        <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>" required><br><br>
 
         <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>"
-            required><br><br>
+        <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" required><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>"
-            required><br><br>
+        <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required><br><br>
 
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
@@ -119,7 +116,7 @@ try {
         <input type="password" id="password_repeat" name="password_repeat" required><br><br>
 
         <?php if ($error): ?>
-            <p style="color: red"><?php echo htmlspecialchars($error); ?></p>
+            <p style="color: red"><?= htmlspecialchars($error) ?></p>
         <?php endif; ?>
 
         <input type="submit" value="Update Profile">

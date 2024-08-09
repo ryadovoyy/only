@@ -91,24 +91,24 @@ try {
 
     <form action="register.php" method="post">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>" required><br><br>
+        <input type="text" id="name" name="name" value="<?= htmlspecialchars($name) ?>" required><br><br>
 
         <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>" required><br><br>
+        <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($phone) ?>" required><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required><br><br>
+        <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required><br><br>
 
         <label for="password">Password:</label>
-        <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($password); ?>"
+        <input type="password" id="password" name="password" value="<?= htmlspecialchars($password) ?>"
             required><br><br>
 
         <label for="password_repeat">Repeat Password:</label>
         <input type="password" id="password_repeat" name="password_repeat"
-            value="<?php echo htmlspecialchars($password_repeat); ?>" required><br><br>
+            value="<?= htmlspecialchars($password_repeat) ?>" required><br><br>
 
         <?php if ($error): ?>
-            <p style="color: red"><?php echo htmlspecialchars($error); ?></p>
+            <p style="color: red"><?= htmlspecialchars($error) ?></p>
         <?php endif; ?>
 
         <input type="submit" value="Register">
