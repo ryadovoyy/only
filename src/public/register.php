@@ -13,7 +13,7 @@ $password_repeat = '';
 
 function handleRegistration()
 {
-    global $success, $name, $phone, $email, $password, $password_repeat;
+    global $name, $phone, $email, $password, $password_repeat;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = trimField($_POST['name']);
@@ -49,7 +49,7 @@ function handleRegistration()
         }
 
         $stmt->close();
-        $success = true;
+        return true;
     }
 }
 
@@ -69,7 +69,7 @@ function checkFieldExistence($conn, $field, $field_name)
 }
 
 try {
-    handleRegistration();
+    $success = handleRegistration();
 } catch (RuntimeException $e) {
     $error = $e->getMessage();
 }

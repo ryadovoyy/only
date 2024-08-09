@@ -27,8 +27,6 @@ $error = '';
 
 function handleProfile($conn, $user_id)
 {
-    global $success;
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = trimField($_POST['name']);
         $phone = trimField($_POST['phone']);
@@ -60,7 +58,7 @@ function handleProfile($conn, $user_id)
         }
 
         $stmt->close();
-        $success = true;
+        return true;
     }
 }
 
@@ -81,7 +79,7 @@ function checkFieldExistence($conn, $user_id, $field, $field_name)
 
 
 try {
-    handleProfile($conn, $user_id);
+    $success = handleProfile($conn, $user_id);
 } catch (RuntimeException $e) {
     $error = $e->getMessage();
 }
