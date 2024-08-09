@@ -37,4 +37,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
     .active {
         text-decoration: underline;
     }
+
+    main {
+        margin: 0 auto;
+        width: 300px;
+    }
 </style>

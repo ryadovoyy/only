@@ -95,34 +95,37 @@ try {
 <body>
     <?php require_once '../private/templates/header.php'; ?>
 
-    <h3>Profile info</h3>
+    <main>
+        <h3>Profile info</h3>
 
-    <?php if ($success): ?>
-        <p>Profile updated successfully!</p>
-    <?php endif; ?>
-
-    <form action="profile.php" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>" required><br><br>
-
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" required><br><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required><br><br>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <label for="password_repeat">Repeat Password:</label>
-        <input type="password" id="password_repeat" name="password_repeat" required><br><br>
-
-        <?php if ($error): ?>
-            <p style="color: red"><?= htmlspecialchars($error) ?></p>
+        <?php if ($success): ?>
+            <p>Profile updated successfully!</p>
         <?php endif; ?>
 
-        <input type="submit" value="Update Profile">
-    </form>
+        <form action="profile.php" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>" required><br><br>
+
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" value="<?= htmlspecialchars($user['phone']) ?>" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>"
+                required><br><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <label for="password_repeat">Repeat Password:</label>
+            <input type="password" id="password_repeat" name="password_repeat" required><br><br>
+
+            <?php if ($error): ?>
+                <p style="color: red"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
+
+            <input type="submit" value="Update Profile">
+        </form>
+    </main>
 </body>
 
 </html>

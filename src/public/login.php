@@ -70,24 +70,26 @@ try {
 <body>
     <?php require_once '../private/templates/header.php'; ?>
 
-    <h3>Login</h3>
+    <main>
+        <h3>Login</h3>
 
-    <form action="login.php" method="post">
-        <label for="login">Phone or Email:</label>
-        <input type="text" id="login" name="login" required><br><br>
+        <form action="login.php" method="post">
+            <label for="login">Phone or Email:</label>
+            <input type="text" id="login" name="login" required><br><br>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
 
-        <div id="captcha-container" class="smart-captcha" style="width: 300px; height: 100px"
-            data-sitekey="<?= getenv('CAPTCHA_CLIENT_KEY') ?>"></div><br>
+            <div id="captcha-container" class="smart-captcha" style="width: 300px; height: 100px"
+                data-sitekey="<?= getenv('CAPTCHA_CLIENT_KEY') ?>"></div><br>
 
-        <?php if ($error): ?>
-            <p style="color: red"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
+            <?php if ($error): ?>
+                <p style="color: red"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
 
-        <input type="submit" value="Login">
-    </form>
+            <input type="submit" value="Login">
+        </form>
+    </main>
 </body>
 
 </html>
