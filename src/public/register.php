@@ -8,12 +8,10 @@ $error = '';
 $name = '';
 $phone = '';
 $email = '';
-$password = '';
-$password_repeat = '';
 
 function handleRegistration()
 {
-    global $name, $phone, $email, $password, $password_repeat;
+    global $name, $phone, $email;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = trimField($_POST['name']);
@@ -103,12 +101,10 @@ try {
             <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required><br><br>
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" value="<?= htmlspecialchars($password) ?>"
-                required><br><br>
+            <input type="password" id="password" name="password" required><br><br>
 
             <label for="password_repeat">Repeat Password:</label>
-            <input type="password" id="password_repeat" name="password_repeat"
-                value="<?= htmlspecialchars($password_repeat) ?>" required><br><br>
+            <input type="password" id="password_repeat" name="password_repeat" required><br><br>
 
             <?php if ($error): ?>
                 <p style="color: red"><?= htmlspecialchars($error) ?></p>

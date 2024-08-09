@@ -4,7 +4,6 @@ require_once '../private/utils.php';
 
 session_start();
 
-const CAPTCHA_URL = 'https://smartcaptcha.yandexcloud.net/';
 $error = '';
 
 function handleLogin()
@@ -37,6 +36,7 @@ function handleLogin()
 
         $_SESSION['user_id'] = $user['id'];
         header('Location: profile.php');
+        exit();
     }
 }
 
@@ -44,7 +44,7 @@ function checkCaptcha($token)
 {
     $secret = getenv('CAPTCHA_SECRET_KEY');
 
-    $captcha_validation = file_get_contents(CAPTCHA_URL . "validate?secret=$secret&token=$token");
+    $captcha_validation = file_get_contents(getenv('CAPTCHA_URL') . "validate?secret=$secret&token=$token");
     $captcha_validation = json_decode($captcha_validation);
 
     if (!$captcha_validation || $captcha_validation->status !== 'ok') {
@@ -64,7 +64,7 @@ try {
 
 <head>
     <title>Login</title>
-    <script src="<?= CAPTCHA_URL . 'captcha.js' ?>" defer></script>
+    <script src="<?= getenv('CAPTCHA_URL') . 'captcha.js' ?>" defer></script>
 </head>
 
 <body>
