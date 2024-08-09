@@ -62,6 +62,7 @@ function checkFieldExistence($conn, $field, $field_name)
     $stmt->close();
 
     $field_name = ucfirst($field_name);
+
     if ($result->num_rows === 1) {
         throw new RuntimeException("$field_name '$field' already exists");
     }
@@ -82,6 +83,8 @@ try {
 </head>
 
 <body>
+    <h3>Registration</h3>
+
     <?php if ($success): ?>
         <p>Registration successful!</p>
     <?php endif; ?>

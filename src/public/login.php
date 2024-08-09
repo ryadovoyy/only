@@ -1,8 +1,8 @@
 <?php
-session_start();
-
 require_once '../private/Database.php';
 require_once '../private/utils.php';
+
+session_start();
 
 const CAPTCHA_URL = 'https://smartcaptcha.yandexcloud.net/';
 $error = '';
@@ -68,6 +68,8 @@ try {
 </head>
 
 <body>
+    <h3>Login</h3>
+
     <form action="login.php" method="post">
         <label for="login">Phone or Email:</label>
         <input type="text" id="login" name="login" required><br><br>
